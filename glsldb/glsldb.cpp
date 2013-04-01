@@ -38,6 +38,9 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif /* _WIN32 */
 #include <string.h>
 #ifndef _WIN32
+	#ifdef __APPLE__
+		#include <sys/types.h>
+	#endif 	/* __APPLE__ */
 #include <sys/ptrace.h>
 #include <sys/wait.h>
 #endif /* _WIN32 */

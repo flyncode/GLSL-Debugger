@@ -31,7 +31,12 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 *******************************************************************************/
 
-#include <Qt/qfile.h>
+//#if QT_VERSION >= 0x040700
+#if __APPLE__
+	#include <QtCore/qfile.h>
+#else
+	#include <Qt/qfile.h>
+#endif
 
 #include "aboutBox.qt.h"
 

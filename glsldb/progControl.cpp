@@ -44,9 +44,15 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdlib.h>
 #include <string.h>
 #ifndef _WIN32
+	#ifdef __APPLE__
+		#include <utils/osx_ptrace_defs.h>
+		#include <signal.h>
+		#define SIGPOLL SIGIO
+		#define __WCLONE        0x80000000      /* Wait only on non-SIGCHLD children */
+	#endif /* __APPLE__ */
 #include <unistd.h>
-#include <sys/ptrace.h>
 #include <sys/types.h>
+#include <sys/ptrace.h>
 #include <sys/shm.h>
 #include <sched.h>
 #endif /* !_WIN32 */
@@ -215,7 +221,11 @@ pcErrorCode ProgramControl::checkChildStatus(void)
 			break;
 		case PTRACE_EVENT_FORK:
 		case PTRACE_EVENT_VFORK:
+#ifdef __APPLE__
+			ptrace_ptr((__ptrace_request)PTRACE_GETEVENTMSG, pid, 0, &newPid);
+#else
 			ptrace((__ptrace_request)PTRACE_GETEVENTMSG, pid, 0, &newPid);
+#endif
 			dbgPrint(DBGLVL_INFO, "extended wait status: PTRACE_EVENT_FORK or "
 			                "PTRACE_EVENT_VFORKi with pid %i\n", (int)newPid);
 			break;
