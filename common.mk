@@ -62,8 +62,10 @@ LDFLAGS = -fPIC $(CROSS_COMPILE_FLAG)
 ifeq ($(shell uname),Darwin)
 	CFLAGS += -I/usr/X11/include
 	CXXFLAGS += -std=c++11 -stdlib=libc++ 
+	SONAME_FLAG += -install_name 
 else
 	CXXFLAGS += -std=c++0x
+	SONAME_FLAG += -Wl,-soname,
 endif
 
 ifeq ($(CC),icc)
