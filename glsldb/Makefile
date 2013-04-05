@@ -1,7 +1,11 @@
 include ../common.mk
 
 CXXFLAGS += -I$(QTDIR)/include -I. -I utils -I ../GLSLCompiler/glslang/Public \
+            -I../GLSLCompiler/glslang/Public -I/usr/X11/include -D__USE_BSD \
             -DLIBPOSTFIX=\"$(POSTFIX)\"
+            
+# OS X-specific
+#CXXFLAGS += -FQtCore -FQtGui -FQtOpenGL
 
 LDFLAGS += -L$(QTDIR)/$(ARCHLIB) -lQtCore -lQtGui -lQtOpenGL -lGLU -lGL -lX11 -lpthread
 
@@ -46,6 +50,8 @@ OBJECTS = glsldb.o pixelBox.moc.o pixelBox.o functionCall.o glCallStatistics.o \
           attachToProcessDialog.moc.o attachToProcess.o attachToProcess.moc.o \
 		  glTraceListModel.o glTraceSettingsDialog.moc.o glTraceSettingsDialog.o \
 		  glTraceFilterModel.o aboutBox.o aboutBox.moc.o
+
+
 
 glsldb: $(OBJECTS) $(LIBS)
 	$(CXX) -o $@ $(OBJECTS) $(LIBS) $(LDFLAGS)

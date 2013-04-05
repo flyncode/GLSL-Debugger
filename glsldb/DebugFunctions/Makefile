@@ -2,12 +2,12 @@ include ../../common.mk
 
 CFLAGS += -I..
 
-LDFLAGS += -L../glenumerants -lglenumerants -L../utils -lutils -ldl -lGL
+LDFLAGS += -L../glenumerants -lglenumerants -L../utils -lutils -ldl -fOpenGL -L../DebugLib -lglsldebug-64
 
 all: glEnd.so
 
 %.so: %.o
-	$(CC) -shared -o $@ -Wl,-soname,$@ $^ $(LDFLAGS)
+	$(CC) -shared -o $@ $(SONAME_FLAG)$@ $^ $(LDFLAGS)
 	mkdir -p ../libs/plugins$(POSTFIX)
 	cp $@ ../libs/plugins$(POSTFIX)/
 
@@ -22,7 +22,7 @@ cleandepend:
 
 tags:
 	ctags --recurse=yes *.[ch]
-
+	
 .PHONY: clean depend tags
 
 
