@@ -39,3 +39,13 @@ glsldb/.DS_Store
 glsldb/ui/aboutBox.ui.h
 
 glsldb/glslDevil.res.cpp
+
+GLSLCompiler/glslang/MachineIndependent/Gen_glslang.cpp
+
+GLSLCompiler/glslang/MachineIndependent/Gen_glslang_tab.cpp
+
+GLSLCompiler/glslang/MachineIndependent/glslang.output
+
+GLSLCompiler/glslang/MachineIndependent/glslang_tab.h
+
+GLSLCompiler/glslang/MachineIndependent/outputfile
